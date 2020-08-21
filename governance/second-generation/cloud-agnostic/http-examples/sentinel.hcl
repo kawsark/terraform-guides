@@ -5,3 +5,7 @@ policy "check-external-http-api" {
 policy "use-latest-module-versions" {
     enforcement_level = "advisory"
 }
+
+policy "asteroids" {
+    enforcement_level = "advisory"
+}

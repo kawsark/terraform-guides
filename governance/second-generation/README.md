@@ -6,6 +6,8 @@ Additionally, it contains [Policy Set](https://www.terraform.io/docs/cloud/senti
 
 These policies are generally intended for use with Terraform 0.11 and 0.12. But some policies such as those that check cost estimates can only be used with Terraform 0.12.
 
+These policies use the older Terraform Sentinel v1 imports. If you are only using Terraform 0.12 and higher, we recommend you use the newer [third-generation](../third-generation) policies which use the newer Terraform Sentinel v2 imports and Sentinel modules.
+
 ## Note about Using These Policies with Terraform Cloud and Enterprise
 These policies test whether resources are being destroyed using the [destroy](https://www.terraform.io/docs/cloud/sentinel/import/tfplan.html#value-destroy) and [requires_new](https://www.terraform.io/docs/cloud/sentinel/import/tfplan.html#value-requires_new) values that were added to Terraform Cloud (https://app.terraform.io) on 8/15/2019 and to Terraform Enterprise (formerly known as PTFE) in the v201909-1 release on 9/13/2019. Please upgrade to that release or higher before using these policies on your Terraform Enterprise server. (If you are not currently able to upgrade your TFE server, see an older version of this document for a workaround that allows you to use these policies on older versions of TFE.)
 
@@ -58,7 +60,7 @@ However, given the amount of time that Terraform 0.12 has been GA, if you only w
 Ensure that the pass and fail mocks cause the policy to pass and fail respectively. If you add a policy with multiple conditions, add mock files that fail each condition and one that fails all of them. You can also add mocks under the cloud's mocks directory if your policy uses a resource for which no mocks currently exist.
 
 ### Policies that Use the tfconfig Import
-The cloud-agnostic policies [prevent-remote-exec-provisioners-on-null-resources](./cloud-agnostic/prevent-remote-exec-provisioners-on-null-resources.sentinel) and [blacklist-provisioners](./cloud-agnostic/blacklist-provisioners.sentinel) policies uses the `tfconfig` import.
+The cloud-agnostic policies [prevent-remote-exec-provisioners-on-null-resources](./cloud-agnostic/prevent-remote-exec-provisioners-on-null-resources.sentinel) and [prohibited-provisioners](./cloud-agnostic/prohibited-provisioners.sentinel) policies uses the `tfconfig` import.
 
 The `tfconfig` import treats static values and references to expressions including variables and attributes of other resources differently in Terraform 0.12. Static values will end up in the `config` value of the resource; but expressions will end up in the `references` value instead. In Terraform 0.11, static values and expressions both ended up in the `config` value. So, it is very important that policies using the `tfconfig` import check both the `config` and `references` values of resources.
 
