@@ -1,7 +1,3 @@
-policy "limit-proposed-monthly-cost" {
-    enforcement_level = "soft-mandatory"
-}
-
 policy "prohibited-datasources" {
     enforcement_level = "advisory"
 }
